@@ -1,0 +1,19 @@
+[
+	[
+		{
+			"icon": "Home",
+			"name": "Blog",
+			"link": "https://blog.mska.ink/"
+		},
+		{
+			"icon": "Paw",
+			"name": "Bangumi",
+			"link": "https://blog.mska.ink/bangumi/"
+		},
+		{
+			"icon": "Server",
+			"name": "Cloud",
+			"link": "https://alist.mska.ink/"
+		}
+	]
+]
