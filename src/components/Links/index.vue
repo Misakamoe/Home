@@ -36,7 +36,8 @@ import { Icon } from "@vicons/utils";
 import {
   Home,
   Paw,
-  Server
+  Server,
+  SmileWink
 } from "@vicons/fa";
 import { mainStore } from "@/store";
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -51,7 +52,8 @@ const store = mainStore();
 const siteIcon = {
   Home,
   Paw,
-  Server
+  Server,
+  SmileWink
 };
 
 // 链接跳转

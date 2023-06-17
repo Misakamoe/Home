@@ -14,6 +14,11 @@
 			"icon": "Server",
 			"name": "Cloud",
 			"link": "https://alist.mska.ink/"
+		},
+		{
+			"icon": "SmileWink",
+			"name": "Waiting...",
+			"link": "/"
 		}
 	]
 ]
