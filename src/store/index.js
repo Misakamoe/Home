@@ -18,7 +18,7 @@ export const mainStore = defineStore("main", {
 			playerTitle: null, // 当前播放歌曲名
 			playerArtist: null, // 当前播放歌手名
 			playerLrc: "Lyrics loading", // 当前播放歌词
-			musicClick: false, // 音乐链接是否跳转
+			musicClick: true, // 音乐链接是否跳转
 		};
 	},
 	getters: {

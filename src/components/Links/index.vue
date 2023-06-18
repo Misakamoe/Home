@@ -37,6 +37,7 @@ import {
   Home,
   Paw,
   Server,
+  Spotify,
   SmileWink
 } from "@vicons/fa";
 import { mainStore } from "@/store";
@@ -53,14 +54,15 @@ const siteIcon = {
   Home,
   Paw,
   Server,
+  Spotify,
   SmileWink
 };
 
 // 链接跳转
 const jumpLink = (data) => {
-  if (data.name === "音乐" && store.musicClick) {
+  if (data.name === "Music" && store.musicClick) {
     if (typeof $openList === "function") $openList();
-  } else {
+  } else if (data.name !== "Waiting...") {
     window.open(data.link, "_blank");
   }
 };
