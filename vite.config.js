@@ -31,6 +31,10 @@ export default ({ mode }) =>
               handler: "CacheFirst",
               options: {
                 cacheName: "js-css-cache",
+                expiration: {
+                  maxEntries: 5,
+                  maxAgeSeconds: 60 * 60 * 3
+                },
               },
             },
             {
@@ -38,6 +42,10 @@ export default ({ mode }) =>
               handler: "CacheFirst",
               options: {
                 cacheName: "image-cache",
+                expiration: {
+                  maxEntries: 5,
+                  maxAgeSeconds: 60 * 60 * 3
+                },
               },
             },
           ],
