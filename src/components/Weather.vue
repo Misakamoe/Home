@@ -5,8 +5,8 @@
     <span>{{ weatherData.weather.temperature }}℃</span>
     <span class="sm-hidden">
       &nbsp;{{
-        weatherData.weather.winddirection?.endsWith("風")
-          ? weatherData.weather.winddirection
+        weatherData.weather.winddirection?.endsWith("风")
+          ? weatherData.weather.winddirection.slice(0, -1) + "風"
           : weatherData.weather.winddirection + "風"
       }}&nbsp;
     </span>
