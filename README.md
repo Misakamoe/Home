@@ -4,9 +4,9 @@
 
 ---
 
-**Home:** https://mska.ink/
+**Home:** https://mska.one/
 
-**Blog:** https://blog.mska.ink/
+**Blog:** https://blog.mska.one/
 
 **Preview:**
 

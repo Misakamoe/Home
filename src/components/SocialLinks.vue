@@ -2,8 +2,8 @@
   <!-- 社交链接 -->
   <div class="social">
     <div class="link">
-      <a v-for="item in socialLinks" :key="item.name" :href="item.url" target="_blank" @mouseenter="socialTip = item.tip"
-        @mouseleave="socialTip = '想了解更多吗 ~'">
+      <a v-for="item in socialLinks" :key="item.name" :href="item.url" target="_blank"
+        @mouseenter="socialTip = item.tip" @mouseleave="socialTip = 'もっと知りたい？'">
         <img class="icon" :src="item.icon" height="24" />
       </a>
     </div>
@@ -12,11 +12,10 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import socialLinks from "@/assets/socialLinks.json";
 
 // 社交链接提示
-const socialTip = ref("想了解更多吗 ~");
+const socialTip = ref("もっと知りたい？");
 </script>
 
 <style lang="scss" scoped>
@@ -31,9 +30,10 @@ const socialTip = ref("想了解更多吗 ~");
   background-color: transparent;
   border-radius: 6px;
   backdrop-filter: blur(0);
-  animation: fade;
-  -webkit-animation: fade 0.5s;
-  transition: all 0.5s;
+  animation: fade 0.5s;
+  transition:
+    background-color 0.3s,
+    backdrop-filter 0.3s;
 
   @media (max-width: 840px) {
     max-width: 100%;
@@ -59,10 +59,14 @@ const socialTip = ref("想了解更多吗 ~");
 
       .icon {
         margin: 0 12px;
-        transition: all 0.3s;
+        transition: transform 0.3s;
+
+        &:hover {
+          transform: scale(1.1);
+        }
 
         &:active {
-          transform: scale(0.9);
+          transform: scale(1);
         }
       }
     }
@@ -71,8 +75,7 @@ const socialTip = ref("想了解更多吗 ~");
   .tip {
     display: none;
     margin-right: 12px;
-    animation: fade;
-    -webkit-animation: fade 0.5s;
+    animation: fade 0.5s;
   }
 
   @media (min-width: 768px) {

@@ -1,29 +1,27 @@
 [
-	[
-		{
-			"icon": "Home",
-			"name": "Blog",
-			"link": "https://blog.mska.ink/"
-		},
-		{
-			"icon": "Paw",
-			"name": "Bangumi",
-			"link": "https://blog.mska.ink/bangumi/"
-		},
-		{
-			"icon": "Server",
-			"name": "Cloud",
-			"link": "https://alist.mska.ink/"
-		},
-		{
-			"icon": "Spotify",
-			"name": "Music",
-			"link": "https://open.spotify.com/embed/playlist/37i9dQZF1DWT8aqnwgRt92?theme=0"
-		},
-		{
-			"icon": "SmileWink",
-			"name": "Waiting...",
-			"link": "/"
-		}
-	]
+  {
+    "icon": "Home",
+    "name": "ブログ",
+    "link": "https://blog.mska.one/"
+  },
+  {
+    "icon": "Paw",
+    "name": "番組",
+    "link": "https://blog.mska.one/bangumi/"
+  },
+  {
+    "icon": "Server",
+    "name": "ネットディスク",
+    "link": "https://alist.mska.one/"
+  },
+  {
+    "icon": "Spotify",
+    "name": "音楽",
+    "link": "https://open.spotify.com/embed/playlist/37i9dQZF1DWT8aqnwgRt92?theme=0"
+  },
+  {
+    "icon": "SmileWink",
+    "name": "待っている...",
+    "link": "/"
+  }
 ]

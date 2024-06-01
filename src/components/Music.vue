@@ -2,23 +2,25 @@
   <!-- 音乐控制面板 -->
   <div class="music" @mouseenter="volumeShow = true" @mouseleave="volumeShow = false" v-show="store.musicOpenState">
     <div class="btns">
-      <span @click="openMusicList()">Playlist</span>
-      <span @click="store.musicOpenState = false">Back</span>
+      <span @click="openMusicList()">プレイリスト</span>
+      <span @click="store.musicOpenState = false">戻る</span>
     </div>
     <div class="control">
       <go-start theme="filled" size="30" fill="#efefef" @click="changeMusicIndex(0)" />
-      <div class="state" @click="changePlayState">
-        <play-one theme="filled" size="50" fill="#efefef" v-show="!store.playerState" />
-        <pause theme="filled" size="50" fill="#efefef" v-show="store.playerState" />
-      </div>
+      <Transition name="fade" mode="out-in">
+        <div :key="store.playerState" class="state" @click="changePlayState">
+          <play-one theme="filled" size="50" fill="#efefef" v-show="!store.playerState" />
+          <pause theme="filled" size="50" fill="#efefef" v-show="store.playerState" />
+        </div>
+      </Transition>
       <go-end theme="filled" size="30" fill="#efefef" @click="changeMusicIndex(1)" />
     </div>
     <div class="menu">
       <div class="name" v-show="!volumeShow">
         <span>{{
           store.getPlayerData.name
-          ? store.getPlayerData.name + " - " + store.getPlayerData.artist
-          : "Misaka の 🛖"
+            ? store.getPlayerData.name + " - " + store.getPlayerData.artist
+            : "Misaka の 🛖"
         }}</span>
       </div>
       <div class="volume" v-show="volumeShow">
@@ -32,13 +34,13 @@
     </div>
   </div>
   <!-- 音乐列表弹窗 -->
-  <Transition name="fade">
-    <div class="music-list" v-show="musicListShow" @click="musicListShow = false">
+  <Transition name="fade" mode="out-in">
+    <div class="music-list" v-show="musicListShow" @click="closeMusicList()">
       <Transition name="zoom">
         <div class="list" v-show="musicListShow" @click.stop>
-          <close-one class="close" theme="filled" size="28" fill="#ffffff60" @click="musicListShow = false" />
-          <Player :songServer="playerData.server" :songType="playerData.type" :songId="playerData.id" :volume="volumeNum"
-            :shuffle="true" ref="playerRef" />
+          <close-one class="close" theme="filled" size="28" fill="#ffffff60" @click="closeMusicList()" />
+          <Player ref="playerRef" :songServer="playerData.server" :songType="playerData.type" :songId="playerData.id"
+            :volume="volumeNum" />
         </div>
       </Transition>
     </div>
@@ -46,7 +48,6 @@
 </template>
 
 <script setup>
-import { ref, reactive, watch, onMounted } from "vue";
 import {
   GoStart,
   PlayOne,
@@ -57,7 +58,7 @@ import {
   VolumeSmall,
   VolumeNotice,
 } from "@icon-park/vue-next";
-import Player from "@/components/Player/index.vue";
+import Player from "@/components/Player.vue";
 import { mainStore } from "@/store";
 const store = mainStore();
 
@@ -77,6 +78,13 @@ const playerData = reactive({
 // 开启播放列表
 const openMusicList = () => {
   musicListShow.value = true;
+  playerRef.value.toggleList();
+};
+
+// 关闭播放列表
+const closeMusicList = () => {
+  musicListShow.value = false;
+  playerRef.value.toggleList();
 };
 
 // 音乐播放暂停
@@ -92,6 +100,9 @@ const changeMusicIndex = (type) => {
 onMounted(() => {
   // 空格键事件
   window.addEventListener("keydown", (e) => {
+    if (!store.musicIsOk) {
+      return;
+    }
     if (e.code == "Space") {
       changePlayState();
     }
@@ -106,7 +117,7 @@ watch(
   (value) => {
     store.musicVolume = value;
     playerRef.value.changeVolume(store.musicVolume);
-  }
+  },
 );
 </script>
 
@@ -122,8 +133,7 @@ watch(
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  animation: fade;
-  -webkit-animation: fade 0.5s;
+  animation: fade 0.5s;
 
   .btns {
     display: flex;
@@ -153,6 +163,8 @@ watch(
     width: 100%;
 
     .state {
+      transition: opacity 0.1s;
+
       .i-icon {
         width: 50px;
         height: 50px;
@@ -195,8 +207,7 @@ watch(
       text-overflow: ellipsis;
       overflow-x: hidden;
       white-space: nowrap;
-      animation: fade;
-      -webkit-animation: fade 0.3s;
+      animation: fade 0.3s;
     }
 
     .volume {
@@ -205,8 +216,7 @@ watch(
       display: flex;
       align-items: center;
       flex-direction: row;
-      animation: fade;
-      -webkit-animation: fade 0.3s;
+      animation: fade 0.3s;
 
       .icon {
         margin-right: 12px;
@@ -285,14 +295,6 @@ watch(
 }
 
 // 弹窗动画
-.fade-enter-active {
-  animation: fade 0.3s ease-in-out;
-}
-
-.fade-leave-active {
-  animation: fade 0.3s ease-in-out reverse;
-}
-
 .zoom-enter-active {
   animation: zoom 0.4s ease-in-out;
 }

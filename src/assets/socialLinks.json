@@ -1,26 +1,26 @@
 [
-	{
-		"name": "Telegram",
-		"icon": "/images/icon/telegram.png",
-		"tip": "是机器人哦 ~",
-		"url": "https://t.me/Misaka0_bot"
-	},
-	{
-		"name": "Github",
-		"icon": "/images/icon/github.png",
-		"tip": "康康有什么 ~",
-		"url": "https://github.com/Misakamoe"
-	},
-	{
-		"name": "Email",
-		"icon": "/images/icon/email.png",
-		"tip": "邮件也可以 ~",
-		"url": "mailto:i@mska.ink"
-	},
-	{
-		"name": "Atom",
-		"icon": "/images/icon/atom.png",
-		"tip": "想订阅更新吗 ~",
-		"url": "https://blog.mska.ink/atom.xml"
-	}
+  {
+    "name": "Telegram",
+    "icon": "/images/icon/telegram.png",
+    "tip": "ロボットだよ",
+    "url": "https://t.me/Misaka0_bot"
+  },
+  {
+    "name": "Github",
+    "icon": "/images/icon/github.png",
+    "tip": "何があるのか",
+    "url": "https://github.com/Misakamoe"
+  },
+  {
+    "name": "Email",
+    "icon": "/images/icon/email.png",
+    "tip": "メールもあるよ",
+    "url": "mailto:i@mska.one"
+  },
+  {
+    "name": "Atom",
+    "icon": "/images/icon/atom.png",
+    "tip": "アップデート情報",
+    "url": "https://blog.mska.one/atom.xml"
+  }
 ]

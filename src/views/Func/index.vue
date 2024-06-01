@@ -5,7 +5,7 @@
       <el-col :span="12">
         <div class="left">
           <Hitokoto />
-          <Music />
+          <Music v-if="playerHasId" />
         </div>
       </el-col>
       <el-col :span="12">
@@ -18,10 +18,7 @@
               <span class="sm-hidden">{{ currentTime.weekday }}</span>
             </div>
             <div class="text">
-              <span>
-                {{ currentTime.hour }}:{{ currentTime.minute }}:{{
-                  currentTime.second
-                }}</span>
+              <span> {{ currentTime.hour }}:{{ currentTime.minute }}:{{ currentTime.second }}</span>
             </div>
           </div>
           <Weather />
@@ -32,12 +29,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
 import { getCurrentTime } from "@/utils/getTime";
 import { mainStore } from "@/store";
-import Music from "@/components/Music/index.vue";
-import Hitokoto from "@/components/Hitokoto/index.vue";
-import Weather from "@/components/Weather/index.vue";
+import Music from "@/components/Music.vue";
+import Hitokoto from "@/components/Hitokoto.vue";
+import Weather from "@/components/Weather.vue";
 
 const store = mainStore();
 
@@ -45,10 +41,17 @@ const store = mainStore();
 const currentTime = ref({});
 const timeInterval = ref(null);
 
+// 播放器 id
+const playerHasId = import.meta.env.VITE_SONG_ID;
+
+// 更新时间
+const updateTimeData = () => {
+  currentTime.value = getCurrentTime();
+};
+
 onMounted(() => {
-  timeInterval.value = setInterval(() => {
-    currentTime.value = getCurrentTime();
-  }, 1000);
+  updateTimeData();
+  timeInterval.value = setInterval(updateTimeData, 1000);
 });
 
 onBeforeUnmount(() => {
@@ -63,40 +66,33 @@ onBeforeUnmount(() => {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-
   &.mobile {
     .el-row {
       .el-col {
         &:nth-of-type(1) {
           display: contents;
         }
-
         &:nth-of-type(2) {
           display: none;
         }
       }
     }
   }
-
   .el-row {
     height: 100%;
     width: 100%;
     margin: 0 !important;
-
     .el-col {
       &:nth-of-type(1) {
         padding-left: 0 !important;
       }
-
       &:nth-of-type(2) {
         padding-right: 0 !important;
       }
-
       @media (max-width: 910px) {
         &:nth-of-type(1) {
           display: none;
         }
-
         &:nth-of-type(2) {
           padding: 0 !important;
           flex: none;
@@ -105,32 +101,26 @@ onBeforeUnmount(() => {
         }
       }
     }
-
     .left,
     .right {
       width: 100%;
       height: 100%;
     }
-
     .right {
       padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      animation: fade;
-      -webkit-animation: fade 0.5s;
-
+      animation: fade 0.5s;
       .time {
         font-size: 1.1rem;
         text-align: center;
-
         .date {
           text-overflow: ellipsis;
           overflow-x: hidden;
           white-space: nowrap;
         }
-
         .text {
           margin-top: 10px;
           font-size: 3.25rem;
@@ -138,7 +128,6 @@ onBeforeUnmount(() => {
           font-family: "UnidreamLED";
         }
       }
-
       .weather {
         text-align: center;
         width: 100%;
@@ -148,4 +137,5 @@ onBeforeUnmount(() => {
       }
     }
   }
-}</style>
+}
+</style>

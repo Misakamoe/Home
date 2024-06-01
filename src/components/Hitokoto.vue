@@ -5,23 +5,25 @@
     <Transition name="el-fade-in-linear">
       <div class="open-music" v-show="openMusicShow && store.musicIsOk" @click="store.musicOpenState = true">
         <music-menu theme="filled" size="18" fill="#efefef" />
-        <span>Music Player</span>
+        <span>音楽プレーヤー</span>
       </div>
     </Transition>
     <!-- 一言内容 -->
-    <div class="content" @click="updateHitokoto">
-      <span class="text">{{ hitokotoData.text }}</span>
-      <span class="from">-「&nbsp;{{ hitokotoData.from }}&nbsp;」</span>
-    </div>
+    <Transition name="el-fade-in-linear" mode="out-in">
+      <div :key="hitokotoData.text" class="content" @click="updateHitokoto">
+        <span class="text">{{ hitokotoData.text }}</span>
+        <span class="from">-「&nbsp;{{ hitokotoData.from }}&nbsp;」</span>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script setup>
-import { reactive, ref, onMounted, h } from "vue";
 import { MusicMenu, Error } from "@icon-park/vue-next";
 import { getHitokoto } from "@/api";
-import debounce from "@/utils/debounce.js";
 import { mainStore } from "@/store";
+import debounce from "@/utils/debounce.js";
+
 const store = mainStore();
 
 // 开启音乐面板按钮显隐
@@ -34,27 +36,26 @@ const hitokotoData = reactive({
 });
 
 // 获取一言数据
-const getHitokotoData = () => {
-  getHitokoto()
-    .then((res) => {
-      hitokotoData.text = res.hitokoto;
-      hitokotoData.from = res.from;
-    })
-    .catch(() => {
-      ElMessage({
-        message: "一言获取失败",
-        icon: h(Error, {
-          theme: "filled",
-          fill: "#efefef",
-        }),
-      });
+const getHitokotoData = async () => {
+  try {
+    const result = await getHitokoto();
+    hitokotoData.text = result.hitokoto;
+    hitokotoData.from = result.from;
+  } catch (error) {
+    ElMessage({
+      message: "一言を取得できませんでした",
+      icon: h(Error, {
+        theme: "filled",
+        fill: "#efefef",
+      }),
     });
+    hitokotoData.text = "今日も平和です";
+    hitokotoData.from = "Misaka";
+  }
 };
 
 // 更新一言数据
 const updateHitokoto = () => {
-  hitokotoData.text = "新的一言正在赶来的路上";
-  hitokotoData.from = "(*/ω＼*)";
   // 防抖
   debounce(() => {
     getHitokotoData();
@@ -71,8 +72,7 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   padding: 20px;
-  animation: fade;
-  -webkit-animation: fade 0.5s;
+  animation: fade 0.5s;
 
   .open-music {
     width: 100%;

@@ -1,25 +1,26 @@
 <template>
-  <div class="links">
+  <div v-if="siteLinks[0]" class="links">
     <div class="line">
       <Icon size="20">
         <Link />
       </Icon>
-      <span class="title">WWWW...Website</span>
+      <span class="title">ウウウ...ウェブサイト</span>
     </div>
     <!-- 网站列表 -->
-    <Swiper v-if="siteLinks[0]" :modules="[Pagination, Mousewheel]" :slides-per-view="1" :space-between="40" :pagination="{
-      el: '.swiper-pagination',
-      clickable: true,
-      bulletElement: 'div',
-    }" :mousewheel="true">
-      <SwiperSlide v-for="site in siteLinks" :key="site">
+    <Swiper v-if="siteLinks[0]" :modules="[Pagination, Mousewheel]" :slides-per-view="1" :space-between="40"
+      :pagination="{
+        el: '.swiper-pagination',
+        clickable: true,
+        bulletElement: 'div',
+      }" :mousewheel="true">
+      <SwiperSlide v-for="site in siteLinksList" :key="site">
         <el-row class="link-all" :gutter="20">
-          <el-col :span="8" v-for="(item, index) in site" :key="item" @click="jumpLink(item)">
-            <div class="item cards" :style="index < 3 ? 'margin-bottom: 20px' : null">
+          <el-col v-for="(item, index) in site" :span="8" :key="item">
+            <div class="item cards" :style="index < 3 ? 'margin-bottom: 20px' : null" @click="jumpLink(item)">
               <Icon size="26">
                 <component :is="siteIcon[item.icon]" />
               </Icon>
-              <span class="name">{{ item.name }}</span>
+              <span class="name text-hidden">{{ item.name }}</span>
             </div>
           </el-col>
         </el-row>
@@ -30,7 +31,6 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
 import { Icon } from "@vicons/utils";
 // 可前往 https://www.xicons.org 自行挑选并在此处引入
 import {
@@ -39,15 +39,23 @@ import {
   Server,
   Spotify,
   SmileWink
-} from "@vicons/fa";
+} from "@vicons/fa"; // 注意使用正确的类别
 import { mainStore } from "@/store";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Pagination, Mousewheel } from "swiper";
+import { Pagination, Mousewheel } from "swiper/modules";
 import siteLinks from "@/assets/siteLinks.json";
-import "swiper/scss";
-import "swiper/scss/pagination";
 
 const store = mainStore();
+
+// 计算网站链接
+const siteLinksList = computed(() => {
+  const result = [];
+  for (let i = 0; i < siteLinks.length; i += 6) {
+    const subArr = siteLinks.slice(i, i + 6);
+    result.push(subArr);
+  }
+  return result;
+});
 
 // 网站链接图标
 const siteIcon = {
@@ -62,7 +70,7 @@ const siteIcon = {
 const jumpLink = (data) => {
   if (data.name === "Music" && store.musicClick) {
     if (typeof $openList === "function") $openList();
-  } else if (data.name !== "Waiting...") {
+  } else {
     window.open(data.link, "_blank");
   }
 };
@@ -79,8 +87,7 @@ onMounted(() => {
     font-size: 1.1rem;
     display: flex;
     align-items: center;
-    animation: fade;
-    -webkit-animation: fade 0.5s;
+    animation: fade 0.5s;
 
     .title {
       margin-left: 8px;
@@ -100,15 +107,24 @@ onMounted(() => {
     }
 
     .swiper-pagination {
-      position: static;
-      margin-top: 4px;
+      margin-top: 12px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
 
       :deep(.swiper-pagination-bullet) {
         background-color: #fff;
-        width: 18px;
+        width: 20px;
         height: 4px;
+        margin: 0 4px;
         border-radius: 4px;
+        opacity: 0.2;
         transition: opacity 0.3s;
+
+        &.swiper-pagination-bullet-active {
+          opacity: 1;
+        }
 
         &:hover {
           opacity: 1;
@@ -118,6 +134,8 @@ onMounted(() => {
   }
 
   .link-all {
+    height: 220px;
+
     .item {
       height: 100px;
       width: 100%;
@@ -125,8 +143,8 @@ onMounted(() => {
       align-items: center;
       flex-direction: row;
       justify-content: center;
-      animation: fade;
-      -webkit-animation: fade 0.5s;
+      padding: 0 10px;
+      animation: fade 0.5s;
 
       &:hover {
         transform: scale(1.02);
@@ -162,6 +180,10 @@ onMounted(() => {
           margin-top: 8px;
         }
       }
+    }
+
+    @media (max-width: 720px) {
+      height: 180px;
     }
   }
 }
