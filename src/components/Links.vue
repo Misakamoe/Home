@@ -2,7 +2,7 @@
   <div v-if="siteLinks[0]" class="links">
     <div class="line">
       <Icon size="20">
-        <Link />
+        <Bookmark />
       </Icon>
       <span class="title">ウウウ...ウェブサイト</span>
     </div>
@@ -34,6 +34,7 @@
 import { Icon } from "@vicons/utils";
 // 可前往 https://www.xicons.org 自行挑选并在此处引入
 import {
+  Bookmark,
   Home,
   Paw,
   Server,
