@@ -27,25 +27,17 @@ export default ({ mode }) =>
           clientsClaim: true,
           runtimeCaching: [
             {
-              urlPattern: /(.*?)\.(js|css|woff2|woff|ttf)/, // js / css 静态资源缓存
+              urlPattern: /(.*?)\.(js|css|ttf)/, // js / css 静态资源缓存
               handler: "CacheFirst",
               options: {
                 cacheName: "js-css-cache",
-                expiration: {
-                  maxEntries: 5,
-                  maxAgeSeconds: 60 * 60 * 3
-                },
               },
             },
             {
-              urlPattern: /(.*?)\.(png|jpe?g|svg|gif|bmp|psd|tiff|tga|eps)/, // 图片缓存
+              urlPattern: /(.*?)\.(png|jpe?g|svg|gif|bmp|webp|svg|ico)/, // 图片缓存
               handler: "CacheFirst",
               options: {
                 cacheName: "image-cache",
-                expiration: {
-                  maxEntries: 5,
-                  maxAgeSeconds: 60 * 60 * 3
-                },
               },
             },
           ],
