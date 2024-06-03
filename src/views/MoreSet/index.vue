@@ -69,13 +69,13 @@ const siteUrl = computed(() => {
 // 更新日志
 const upData = reactive({
   new: [
+    "精简 Windows 安装镜像",
     "通过 Fly.io 快速部署 Artalk",
     "建站一周年纪念",
-    "晨练--打卡档"
   ],
   fix: [
+    "全站采用 .webp 图片",
     "评论系统更换为 Artalk",
-    "移除 Artitalk 说说",
     "添加 Bangumi 追番"
   ],
 });
