@@ -113,7 +113,7 @@ onMounted(() => {
  _| |_| |  | |____) |  | |      | |
 |_____|_|  |_|_____/   |_|      |_|`;
   const content = `\n\nVersion: ${config.version}\nHome: ${config.home}\nGithub: ${config.github}`;
-  console.info(`%c${title1} %c${title2} %c${title3} %c${content}`, styleTitle1, styleTitle2, styleContent);
+  console.info(`%c${title1} %c${title2} %c${title3} %c${content}`, styleTitle1, styleTitle2, styleTitle2, styleContent);
 });
 
 onBeforeUnmount(() => {
