@@ -10,4 +10,4 @@
 
 **Preview:**
 
-![](public/images/2023-06-17_162943.png)
+![](public/images/2024-06-04_163653.webp)
