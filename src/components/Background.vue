@@ -65,7 +65,8 @@ const imgLoadError = () => {
       fill: "#efefef",
     }),
   });
-  bgUrl.value = `/images/background${bgRandom}.jpg`;
+  // bgUrl.value = `/images/background${bgRandom}.jpg`;
+  bgUrl.value = `/images/background.webp`;
 };
 
 // 监听壁纸切换
