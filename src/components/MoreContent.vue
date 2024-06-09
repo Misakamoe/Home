@@ -1,7 +1,5 @@
 <template>
   <div class="more-content">
-    乞うご期待
-    <br />
     <strong>Background Source :</strong>&nbsp;<a href="https://www.pixiv.net/artworks/101660930" target="_blank">猩猩</a>
   </div>
 </template>
